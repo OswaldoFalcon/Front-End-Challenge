@@ -10,10 +10,10 @@ defmodule FrontEndChallengeWeb.Components.MyButton do
   def render(assigns) do
     ~F"""
     <button
-      class={"button", "is-info", "is-loading": @loading, "is-rounded": @rounded}
+      class={"button", "is-info"}
       :on-click={@click}
     >
-      <#slot />
+      <#slot /> 
     </button>
     """
   end

@@ -21,6 +21,7 @@ defmodule FrontEndChallengeWeb.Router do
 
     get "/", PageController, :index
     live "/demo", Demo
+    live "/tree", Tree
   end
 
   # Other scopes may use custom stacks.
