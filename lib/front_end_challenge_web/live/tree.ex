@@ -1,9 +1,10 @@
 defmodule FrontEndChallengeWeb.Tree do
   use Surface.LiveView
 
-  alias FrontEndChallengeWeb.Components.{Hierarchy, MyButton}
+  alias FrontEndChallengeWeb.Components.{Hierarchy, MyButton, Hero, MyGraph}
   alias Surface.Components.Form
   alias Surface.Components.Form.Select
+  alias FrontEndChallenge.TreeGraph
 
   data department, :list,
     default: [
@@ -13,24 +14,31 @@ defmodule FrontEndChallengeWeb.Tree do
       %{role: "QA tester", warrant: "800", level: 3}
     ]
 
+  data employees, :list,
+    default: [
+      %{id: 0, role: :manager},
+      %{id: 2, role: :manager, parent_id: 0},
+      %{id: 3, role: :developer, parent_id: 2},
+      %{id: 4, role: :qa_tester, parent_id: 2}
+    ]
+
+  data message, :string, default: "Add Graph "
+  data paths, :list, default: []
+  data yo, :list, default: [1,1,2,2,]
+  data graph, :struct, default: Graph.new
+  data vertex, :integer, default: 0 
+
   def render(assigns) do
     ~F"""
-    <Hierarchy items={@department}/>
-    <div class="select">
-      <Select
-        form="Department"
-        field="role"
-        options={
-          Manager: "manager",
-          Developer: "user",
-          "QA Tester": "qa_tester"
-        }
-      />
-    </div>
-    <MyButton>
-      Hola
-    </MyButton>
     
+    <MyGraph message = {@message} id= "message" employees={@employees} graph={@graph} vertex={@vertex}>
+
+    </MyGraph>
+
+    <Hero message={@message} id= "message"/>
     """
   end
+
+
+
 end

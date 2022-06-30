@@ -15,12 +15,27 @@ defmodule FrontEndChallengeWeb.Components.Hero do
   @doc "The color"
   prop color, :string, values!: ["danger", "info", "warning"]
 
+  prop message, :string 
+
   def render(assigns) do
     ~F"""
     <section class={"phx-hero", "alert-#{@color}": @color}>
       <h1>{gettext("Hi, %{name}!", name: @name)}</h1>
       <p>{@subtitle}</p>
+      <p> {@message} </p>
     </section>
     """
   end
+
+  def show(component_id) do
+    send_update(__MODULE__, id: component_id, message: "change between componennts")
+  end
+
+  def handle_event("close", _, socket) do
+    message = "yiii"
+    {:noreply, assign(socket, 
+    message:  message,
+    )}
+  end
+
 end

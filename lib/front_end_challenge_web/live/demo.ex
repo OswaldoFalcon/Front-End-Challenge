@@ -1,16 +1,14 @@
 defmodule FrontEndChallengeWeb.Demo do
   use Surface.LiveView
 
-  alias FrontEndChallengeWeb.Components.{Hero, MyButton, Increase}
+  alias FrontEndChallengeWeb.Components.{Hero, Increase}
 
   def render(assigns) do
     ~F"""
     <div>
       <Hero name="John Doe" subtitle="How are you?" color="info" />
     </div>
-    <MyButton loading rounded>
-      Change my style!
-    </MyButton>
+   
 
     <ul id="myUL">
       <li><span class="caret">Manager A</span>

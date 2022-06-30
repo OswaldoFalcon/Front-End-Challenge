@@ -48,7 +48,8 @@ defmodule FrontEndChallenge.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:surface, "~> 0.7.4"},
-      {:surface_catalogue, "~> 0.4.0"}
+      {:surface_catalogue, "~> 0.4.0"},
+      {:libgraph, "~> 0.7"}
     ]
   end
 

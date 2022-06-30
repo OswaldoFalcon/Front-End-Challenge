@@ -1,4 +1,4 @@
-defmodule FrontEndChallengeWeb.Components.Hierarchy do
+  defmodule FrontEndChallengeWeb.Components.Hierarchy do
   @moduledoc """
   A Tree node that has the hierachy component generated 
   for the UI.
@@ -39,6 +39,24 @@ defmodule FrontEndChallengeWeb.Components.Hierarchy do
       </li>
     </ul>
   {/for}
+  
+  {#for person <- @items}
+    
+  {#if person.level < 2}
+    Role: {person.role}  
+  {/if}
+
+  {#if person.level == 2}
+  <p>
+  {#for dot <- 1..person.level*3}
+  .
+  {/for}
+    Role: {person.role}
+  </p>
+  {/if}  
+
+  {/for}
+
     """
   end
 
