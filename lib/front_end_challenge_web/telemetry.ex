@@ -1,4 +1,7 @@
 defmodule FrontEndChallengeWeb.Telemetry do
+    @moduledoc """
+  This is the Telemetry Module
+  """
   use Supervisor
   import Telemetry.Metrics
 

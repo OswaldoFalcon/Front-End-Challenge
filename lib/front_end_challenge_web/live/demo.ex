@@ -1,4 +1,7 @@
 defmodule FrontEndChallengeWeb.Demo do
+   @moduledoc """
+  This is the demo Module
+  """
   use Surface.LiveView
 
   alias FrontEndChallengeWeb.Components.{Hero, Increase}
@@ -8,7 +11,6 @@ defmodule FrontEndChallengeWeb.Demo do
     <div>
       <Hero name="John Doe" subtitle="How are you?" color="info" />
     </div>
-   
 
     <ul id="myUL">
       <li><span class="caret">Manager A</span>

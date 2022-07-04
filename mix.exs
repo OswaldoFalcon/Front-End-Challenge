@@ -49,7 +49,8 @@ defmodule FrontEndChallenge.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:surface, "~> 0.7.4"},
       {:surface_catalogue, "~> 0.4.0"},
-      {:libgraph, "~> 0.7"}
+      {:libgraph, "~> 0.7"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 

@@ -4,7 +4,7 @@ defmodule FrontEndChallengeWeb.Components.Increase do
   for the UI.
   """
   use Surface.LiveComponent
-  import FrontEndChallengeWeb.Gettext
+
   data count, :integer, default: 0
   slot default, args: [:count]
 
