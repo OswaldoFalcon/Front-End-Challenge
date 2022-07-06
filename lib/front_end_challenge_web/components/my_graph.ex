@@ -14,7 +14,7 @@ defmodule FrontEndChallengeWeb.Components.MyGraph do
 
   slot default
 
-  data allocation, :integer, default: 0
+  prop allocation, :integer, default: 0
   prop employees, :list
   prop graph, :struct
   prop vertex, :list
@@ -24,21 +24,25 @@ defmodule FrontEndChallengeWeb.Components.MyGraph do
 
   def render(assigns) do
     ~F"""
-    <div>
+    <div class="containers">
       <h1>
         Root Manager
       </h1>
       <div>
         {#for v <- @vertex}
-          {Graph.vertex_labels(@graph, v) |> List.first() |> Atom.to_string()} id: {v} <button class="button is-info" :on-click="add" phx-value-role="developer" phx-value-parent_id={v}>
+          {Graph.vertex_labels(@graph, v) |> List.first() |> Atom.to_string()} id: {v} <button class="mybutton add" :on-click="add" phx-value-role="developer" phx-value-parent_id={v}>
             Developer
           </button>
-          <button class="button is-info" :on-click="add" phx-value-role="qa_tester" phx-value-parent_id={v}>
+          <button class="mybutton add" :on-click="add" phx-value-role="qa_tester" phx-value-parent_id={v}>
             QA Testert
           </button>
-          <button class="button is-danger" :on-click="delete" phx-value-vertex={v} phx-value-role="manager">
-            delete
+          <button class="mybutton add" :on-click="add_manager">
+            manager
           </button>
+          <button class="mybutton del" :on-click="delete" phx-value-vertex={v} phx-value-role="manager">
+            -
+          </button>
+
           <br><br>
           {#for child <- Graph.in_neighbors(@graph, v)}
             {TreeGraph.label_vertex(@graph, child)} id: {child}
@@ -48,15 +52,19 @@ defmodule FrontEndChallengeWeb.Components.MyGraph do
               phx-value-vertex={child}
               phx-value-role={@curret_role}
             >
-              delete
+              -
             </button>
             <br>
           {#else}
           {/for}
         {/for}
       </div>
-      <button class={"button", "is-info"} :on-click="add_manager">
-        add manager
+      <button
+        class={"mybutton
+          ", "add"}
+        :on-click="add_manager"
+      >
+        manager
       </button>
 
       <h1>
@@ -72,6 +80,7 @@ defmodule FrontEndChallengeWeb.Components.MyGraph do
     manager_vertex = socket.assigns.vertex ++ [vertex]
     graph = TreeGraph.build_graph(employees)
     allocation = socket.assigns.allocation + 500
+    send(self(), {:allocation, allocation})
 
     {:noreply,
      assign(socket,
@@ -88,12 +97,9 @@ defmodule FrontEndChallengeWeb.Components.MyGraph do
     employees = TreeGraph.add_employee(socket.assigns.employees, parent_id, role)
     graph = TreeGraph.build_graph(employees)
 
-    allocation =
-      cond do
-        role == :developer -> socket.assigns.allocation + 1000
-        role == :qa_tester -> socket.assigns.allocation + 500
-        true -> socket.assigns.allocation + 0
-      end
+    allocation = TreeGraph.total_allocation(graph)
+
+    send(self(), {:allocation, allocation})
 
     {:noreply,
      assign(socket,
@@ -111,6 +117,7 @@ defmodule FrontEndChallengeWeb.Components.MyGraph do
     graph = TreeGraph.build_graph(employees)
 
     allocation = TreeGraph.total_allocation(graph)
+    send(self(), {:allocation, allocation})
 
     {:noreply,
      assign(socket,

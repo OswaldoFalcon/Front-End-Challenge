@@ -65,11 +65,15 @@ defmodule FrontEndChallenge.TreeGraph do
         [%{id: 0, role: :manager}]
 
       length(vertexes) > 1 ->
-        Enum.map(vertexes, fn vertex ->
-          Enum.filter(employees, fn employee -> employee.id == vertex end)
-        end)
-        |> List.flatten()
+        get_employees(vertexes, employees)
     end
+  end
+
+  defp get_employees(vertexes, employees) do
+    Enum.map(vertexes, fn vertex ->
+      Enum.filter(employees, fn employee -> employee.id == vertex end)
+    end)
+    |> List.flatten()
   end
 
   def total_allocation(graph) do

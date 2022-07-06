@@ -5,7 +5,7 @@ defmodule FrontEndChallengeWeb.Tree do
   """
   use Surface.LiveView
 
-  alias FrontEndChallengeWeb.Components.{MyGraph}
+  alias FrontEndChallengeWeb.Components.{MyGraph, Total}
 
   data employees, :list,
     default: [
@@ -14,11 +14,22 @@ defmodule FrontEndChallengeWeb.Tree do
 
   data graph, :struct, default: Graph.new()
   data vertex, :list, default: []
+  data allocation, :integer, default: 0
 
   def render(assigns) do
     ~F"""
+    <Total>
+      Total allocation : {@allocation}
+    </Total>
     <MyGraph employees={@employees} graph={@graph} vertex={@vertex} id="graph">
     </MyGraph>
     """
+  end
+
+  def handle_info({:allocation, allocation}, socket) do
+    {:noreply,
+     assign(socket,
+       allocation: allocation
+     )}
   end
 end
