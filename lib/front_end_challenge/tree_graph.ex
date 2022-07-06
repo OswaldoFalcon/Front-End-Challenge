@@ -1,5 +1,5 @@
 defmodule FrontEndChallenge.TreeGraph do
-   @moduledoc """
+  @moduledoc """
   This is the TreeGraph module.
   This module have diferrent functions tu build a Hierarchy Tree 
   with libgraph.
@@ -56,17 +56,50 @@ defmodule FrontEndChallenge.TreeGraph do
     space <> role
   end
 
+  def delete_employees(graph, employees, vertex) do
+    graph = Graph.delete_vertex(graph, vertex)
+    vertexes = graph |> Graph.components() |> List.last() |> Enum.sort()
+
+    cond do
+      length(vertexes) == 1 ->
+        [%{id: 0, role: :manager}]
+
+      length(vertexes) > 1 ->
+        Enum.map(vertexes, fn vertex ->
+          Enum.filter(employees, fn employee -> employee.id == vertex end)
+        end)
+        |> List.flatten()
+    end
+  end
+
+  def total_allocation(graph) do
+    graph
+    |> Graph.components()
+    |> List.last()
+    |> Enum.sort()
+    |> Enum.map(fn vertex -> Graph.vertex_labels(graph, vertex) end)
+    |> List.flatten()
+    |> Enum.map(fn role ->
+      cond do
+        role == :developer -> 1000
+        role == :qa_tester -> 500
+        role == :manager -> 500
+      end
+    end)
+    |> Enum.sum()
+  end
+
   def build_graph(data) do
     Graph.new()
     |> add_vertices(data)
     |> add_edges(data)
-  end 
+  end
 
   defmodule TreeBuilder do
-     @moduledoc """
-    This is the MyGraph Module
-    Print the Tree in Terminal
-  """
+    @moduledoc """
+      This is the MyGraph Module
+      Print the Tree in Terminal
+    """
     def build(graph, vertex) do
       children =
         for child <- Graph.in_neighbors(graph, vertex) do

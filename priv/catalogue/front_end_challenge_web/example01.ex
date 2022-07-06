@@ -12,10 +12,11 @@ defmodule FrontEndChallengeWeb.Components.Hero.Example01 do
 
   def render(assigns) do
     ~F"""
-    <Hero subtitle="How are you?"/>
+    <Hero subtitle="How are you?" id="subtitile" />
     <Hero
       name="John Doe"
       subtitle="Welcome to Surface!"
+      id="welcome"
     />
     """
   end

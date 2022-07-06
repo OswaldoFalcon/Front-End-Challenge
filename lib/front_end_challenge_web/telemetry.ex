@@ -1,5 +1,5 @@
 defmodule FrontEndChallengeWeb.Telemetry do
-    @moduledoc """
+  @moduledoc """
   This is the Telemetry Module
   """
   use Supervisor

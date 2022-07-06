@@ -1,5 +1,5 @@
 defmodule FrontEndChallengeWeb.Tree do
-   @moduledoc """
+  @moduledoc """
   This is the Tree Module
   Use Surface to build UI.
   """

@@ -16,16 +16,19 @@ defmodule FrontEndChallengeWeb.Components.Hero.Example02 do
       name="John Doe"
       subtitle="How are you?"
       color="info"
+      id="info"
     />
     <Hero
       name="John Doe"
       subtitle="How are you?"
       color="warning"
+      id="warning"
     />
     <Hero
       name="John Doe"
       subtitle="How are you?"
       color="danger"
+      id="danger"
     />
     """
   end
